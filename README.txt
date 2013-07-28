@@ -3,7 +3,7 @@ Contributors: Vayu Robins
 Tags: attachments, images, reorder, sort, entry, post, custom post types, page
 Requires at least: 3.4
 Tested up to: 3.5.3
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -15,7 +15,7 @@ This plugin will help you manually reorder or sort the images attached to your p
 
 This will only affect those images uploaded to the specific post or page.
 
-Here is the php code to get the images in your theme:
+Here is the php code that will help you display the images in your theme:
 
 `$thumb_id = get_post_thumbnail_id( get_the_ID() );
 $args = array(
