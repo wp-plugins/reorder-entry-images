@@ -1,6 +1,6 @@
 === Reorder Entry Images ===
-Contributors: Vayu Robins
-Tags: attachments, images, reorder, sort, entry, post, custom post types, page
+Contributors: Vayu
+Tags: attachments, images, reorder, sort, entry, post, custom post types, page, drag & drop
 Requires at least: 3.4
 Tested up to: 3.5.3
 Stable tag: 1.0.1
@@ -11,7 +11,7 @@ Get all the attachments (images only) that belong to a post or a page and displa
 
 == Description ==
 
-This plugin will help you manually reorder or sort the images attached to your post, custom post type or page.  Once installed and acivated you can choose which post type or page you want this functionality on.  All the images attached to that specific post or page will then be listed on the post-edit page in the admin.  You will then be able to drag & drop the images in the order you want them to be listed.
+This plugin will help you manually reorder or sort the images attached to your post, custom post type or page.  Once installed and activated you can choose which post type or page you want this functionality on.  All the images attached to that specific post or page will then be listed on the post-edit page in the admin.  You will then be able to drag & drop the images in the order you want them to be listed.
 
 This will only affect those images uploaded to the specific post or page.
 
@@ -43,6 +43,11 @@ http://vayu.dk/reorder-entry-images/
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Go to Settings->Reorder images and choose which post type or page to use this.
 
+== Frequently Asked Questions ==
+
+= When change the image order, nothing happens? =
+
+Please remember to save the changes by pressing the Update button.
 
 == Screenshots ==
 
