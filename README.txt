@@ -2,8 +2,8 @@
 Contributors: Vayu
 Tags: attachments, images, reorder, sort, entry, post, custom post types, page, drag & drop
 Requires at least: 3.4
-Tested up to: 3.5.3
-Stable tag: 1.0.1
+Tested up to: 3.6.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -26,13 +26,25 @@ $args = array(
 	'order' => 'ASC',
 	'post_parent' => get_the_ID(),
 	'exclude' => $thumb_id // Exclude featured thumbnail
-); 
+);
 $attachments = get_posts($args);
 if ( $attachments ) :
 	foreach ( $attachments as $attachment ) :
-		echo wp_get_attachment_image( $attachment->ID, 'full' );	
-	endforeach;	
+		echo wp_get_attachment_image( $attachment->ID, 'full' );
+	endforeach;
 endif;`
+
+Insert images into post/page with this shortcode: `[list_attached_images]`
+Her are some parameters
+
+* imagesize: ie. thumbnail, medium, large
+* numberimages: ie. -1, 0, 5
+* imagelink: link to the image file - false/true
+* order: ie. desc, asc
+* listclass: use your own class
+
+Example:
+`[list_attached_images imagesize="large" numberimages="3" imagelink="true" order="asc" listclass="my-images"]`
 
 == Website ==
 http://vayu.dk/reorder-entry-images/
@@ -55,6 +67,13 @@ Please remember to save the changes by pressing the Update button.
 2. Settings page - set which post type or page to use this.
 
 == Changelog ==
+
+= 1.0.2 =
+* Added shortcode, to add images to your post/page.
+* Updated settings page with som information about the plugin and author.
+
+= 1.0.1 =
+* Fixed minor bug
 
 = 1.0 =
 * Launch first version of plugin.

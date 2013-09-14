@@ -24,7 +24,7 @@ class ReorderEntryImages {
 	 *
 	 * @var     string
 	 */
-	protected $version = '1.0';
+	protected $version = '1.0.2';
 
 	/**
 	* Unique identifier for your plugin.
@@ -41,7 +41,7 @@ class ReorderEntryImages {
 	/**
 	 * Instance of this class.
 	 *
-	 * @since    1.0
+	 * @since    1.0.0
 	 *
 	 * @var      object
 	 */
@@ -95,11 +95,14 @@ class ReorderEntryImages {
 					add_action( 'add_meta_boxes_' . $type, array( $this, 'add_image_sortable_box' ) );
 				}
 			}
-			
+
 			// Updates the attachments when saving
 			add_filter( 'wp_insert_post_data', array( $this, 'sort_images_meta_save' ), 99, 2 );
 
 		endif;
+
+		// Add list attached images shortcode
+		add_shortcode( 'list_attached_images', array( $this, 'list_attached_images_shortcode' ) );
 
 	}
 
@@ -202,7 +205,7 @@ class ReorderEntryImages {
 	* @since 1.0
 	*/
 	public function add_plugin_admin_menu() {
-		add_options_page(
+		$this->pagehook = add_options_page(
 			__( 'Reorder entry images', $this->plugin_slug ),
 			__( 'Reorder images', $this->plugin_slug ),
 			'manage_options',
@@ -228,9 +231,9 @@ class ReorderEntryImages {
 	public function register_plugin_settings() {
 
 		register_setting( 'rei_the_settings_group', 'rei-options' );
-		
+
 		add_settings_section( 'rei-section-posttype', __( 'Post type', 'reorder-entry-images' ), array( $this, 'rei_general_settings_callback'), $this->plugin_slug );
-		
+
 		add_settings_field( 'rei-field-posttype', __( 'Post type', 'reorder-entry-images' ), array( $this, 'rei_general_settings_field_callback'), $this->plugin_slug, 'rei-section-posttype' );
 	}
 
@@ -298,8 +301,8 @@ class ReorderEntryImages {
 	 * @param 	array|object 	$p
 	 * @since   1.0
 	 */
-	public function add_image_metabox_sorter( $p ) { 
-	
+	public function add_image_metabox_sorter( $p ) {
+
 		$thumb_id = get_post_thumbnail_id( get_the_ID() );
 
 		$args = array(
@@ -336,7 +339,7 @@ class ReorderEntryImages {
 						</div>
 					<?php endforeach; ?>
 					<div style="clear: both;"></div>
-				</div>      
+				</div>
 			</div>
 
 		<?php
@@ -354,7 +357,7 @@ class ReorderEntryImages {
 	public function sort_images_meta_save( $data, $_post_vars ) {
 		//global $post_ID;
 		$post_ID = $_post_vars['ID'];
-		
+
 		if( !in_array( $data['post_type'], $this->the_post_type ) || !isset( $_post_vars['images_sort_nonce'] ) ) {
 			return $data;
 		}
@@ -386,7 +389,9 @@ class ReorderEntryImages {
 	/**
 	 * Use to get post types
 	 *
-	 * @param string $key 
+	 * @since 1.0.0
+	 *
+	 * @param string $key
 	 * @return array|object
 	 */
 	private static function getObjectTypes( $key = '' ) {
@@ -396,7 +401,61 @@ class ReorderEntryImages {
 		if ( isset($object_types[$key]) ) {
 			return $object_types[$key];
 		}
-		
+
 		return $object_types;
+	}
+
+
+	/**
+	 * Add shortcode to show image attachements in a post or page.
+	 *
+	 * @since 1.0.1
+	 *
+	 * @param array|string $attr Shortcode attributes. Empty string if no attributes.
+	 * @return string Shortcode output
+	 */
+	function list_attached_images_shortcode( $attr ) {
+		$defaults =  array(
+			'imagesize'      => 'thumbnail',
+			'numberimages'	  => 0,
+			'order'			  => 'desc',
+			'listclass'      => 'list-images',
+			'before'          => '<li class="image-item %s">',
+			'after'           => '</li>',
+			'imagelink'      => false,
+			'items_wrap'      => '<ul id="list-attached-images" class="%1$s">%2$s</ul>',
+		);
+		/* Merge the input attributes and the defaults. */
+		extract( shortcode_atts( $defaults, $attr ) );
+
+		$wrap_class = $listclass ? $listclass : '';
+
+		$thumb_id = get_post_thumbnail_id( get_the_ID() );
+		$args = array(
+			'post_type' => 'attachment',
+			'post_mime_type'  => 'image/jpeg',
+			'orderby' => 'menu_order',
+			'numberposts' => $numberimages,
+			'order' => $order,
+			'post_parent' => get_the_ID(),
+			'exclude' => $thumb_id // Exclude featured thumbnail
+		);
+		$attachments = get_posts($args);
+		$images_count = count( $attachments );
+
+		if ( $attachments ) :
+			foreach ( $attachments as $key => $attachment ) :
+				if( $imagelink == 'true' ) {
+					$link_before = sprintf( '<a href="%s" title="%s">', esc_attr( $attachment->guid ), esc_attr( $attachment->post_title ) );
+					$link_after = '</a>';
+				}
+				$last_child = $key%$images_count == ($images_count-1) ? 'last-child' : '';
+				$items .= sprintf( $before, esc_attr( $last_child ) ) . $link_before . wp_get_attachment_image( $attachment->ID, $imagesize ) .$link_after . $after;
+			endforeach;
+		endif;
+
+		$output .= sprintf( $items_wrap, esc_attr( $wrap_class ), $items );
+
+		return apply_filters( 'rei_shortcode', $output, $attr );
 	}
 }
