@@ -20,7 +20,7 @@ class ReorderEntryImages {
 	/**
 	 * Plugin version, used for cache-busting of style and script file references.
 	 *
-	 * @since   1.0
+	 * @since   1.0.0
 	 *
 	 * @var     string
 	 */
@@ -32,7 +32,7 @@ class ReorderEntryImages {
 	* Use this value (not the variable name) as the text domain when internationalizing strings of text. It should
 	* match the Text Domain file header in the main plugin file.
 	*
-	* @since 1.0
+	* @since 1.0.0
 	*
 	* @var string
 	*/
@@ -50,7 +50,7 @@ class ReorderEntryImages {
 	/**
 	* Slug of the plugin screen.
 	*
-	* @since 1.0
+	* @since 1.0.0
 	*
 	* @var string
 	*/
@@ -59,7 +59,7 @@ class ReorderEntryImages {
 	/**
 	 * Entry type to add the metabox to.
 	 *
-	 * @since    1.0
+	 * @since    1.0.0
 	 *
 	 * @var      string
 	 */
@@ -68,7 +68,7 @@ class ReorderEntryImages {
 	/**
 	 * Initialize the plugin by setting localization, filters, and administration functions.
 	 *
-	 * @since     1.0
+	 * @since     1.0.0
 	 */
 	private function __construct() {
 
@@ -103,14 +103,13 @@ class ReorderEntryImages {
 
 		// Add list attached images shortcode
 		add_shortcode( 'list_attached_images', array( $this, 'list_attached_images_shortcode' ) );
-
 	}
 
 
 	/**
 	 * Return an instance of this class.
 	 *
-	 * @since     1.0
+	 * @since     1.0.0
 	 *
 	 * @return    object    A single instance of this class.
 	 */
@@ -127,7 +126,7 @@ class ReorderEntryImages {
 	/**
 	 * Fired when the plugin is activated.
 	 *
-	 * @since    1.0
+	 * @since    1.0.0
 	 *
 	 * @param    boolean    $network_wide    True if WPMU superadmin uses "Network Activate" action, false if WPMU is disabled or plugin is activated on an individual blog.
 	 */
@@ -141,7 +140,7 @@ class ReorderEntryImages {
 	/**
 	 * Fired when the plugin is deactivated.
 	 *
-	 * @since    1.0
+	 * @since    1.0.0
 	 *
 	 * @param    boolean    $network_wide    True if WPMU superadmin uses "Network Deactivate" action, false if WPMU is disabled or plugin is deactivated on an individual blog.
 	 */
@@ -155,7 +154,7 @@ class ReorderEntryImages {
 	/**
 	 * Load the plugin text domain for translation.
 	 *
-	 * @since    1.0
+	 * @since    1.0.0
 	 */
 	public function load_plugin_textdomain() {
 
@@ -169,7 +168,7 @@ class ReorderEntryImages {
 	/**
 	 * Register and enqueue admin-specific style sheet.
 	 *
-	 * @since     1.0
+	 * @since     1.0.0
 	 *
 	 * @return    null    Return early if no settings page is registered.
 	 */
@@ -186,7 +185,7 @@ class ReorderEntryImages {
 	/**
 	 * Register and enqueue admin-specific JavaScript.
 	 *
-	 * @since    1.0
+	 * @since    1.0.0
 	 *
 	 * @return   null    Return early if no settings page is registered.
 	 */
@@ -202,7 +201,7 @@ class ReorderEntryImages {
 	/**
 	* Register the administration menu for this plugin into the WordPress Dashboard menu.
 	*
-	* @since 1.0
+	* @since 1.0.0
 	*/
 	public function add_plugin_admin_menu() {
 		$this->pagehook = add_options_page(
@@ -217,7 +216,7 @@ class ReorderEntryImages {
 	/**
 	* Render the settings page for this plugin.
 	*
-	* @since 1.0
+	* @since 1.0.0
 	*/
 	public function display_plugin_admin_page() {
 		include_once( 'views/admin.php' );
@@ -226,7 +225,7 @@ class ReorderEntryImages {
 	/**
 	 * Register plugin settings
 	 *
-	 * @since     1.0
+	 * @since     1.0.0
 	 */
 	public function register_plugin_settings() {
 
@@ -240,7 +239,7 @@ class ReorderEntryImages {
 	/**
 	* Render the settings section page for this plugin.
 	*
-	* @since 1.0
+	* @since 1.0.0
 	*/
 	public function rei_general_settings_callback() {
 		echo 'Choose which post type you would like to use the reorder images functionality.';
@@ -249,7 +248,7 @@ class ReorderEntryImages {
 	/**
 	* Render the settings field for this plugin.
 	*
-	* @since 1.0
+	* @since 1.0.0
 	*/
 	public function rei_general_settings_field_callback() {
 
@@ -268,7 +267,7 @@ class ReorderEntryImages {
 	/**
 	 * Add a custom metabox to post, page or cpt, that displays the attachments in a list.
 	 *
-	 * @since   1.0
+	 * @since   1.0.0
 	 */
 	public function add_image_sortable_box() {
 
@@ -299,7 +298,7 @@ class ReorderEntryImages {
 	 * Gets all attachments and displays them in a sortable list on admin pages.
 	 *
 	 * @param 	array|object 	$p
-	 * @since   1.0
+	 * @since   1.0.0
 	 */
 	public function add_image_metabox_sorter( $p ) {
 
@@ -352,7 +351,7 @@ class ReorderEntryImages {
 	 * @param 	array 	$data			Sinitized post data
 	 * @param 	array 	$_post_vars		Raw post data
 	 * @return	$data
-	 * @since   1.0
+	 * @since   1.0.0
 	 */
 	public function sort_images_meta_save( $data, $_post_vars ) {
 		//global $post_ID;

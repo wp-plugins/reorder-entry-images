@@ -34,5 +34,4 @@ require_once( plugin_dir_path( __FILE__ ) . 'class-reorder-entry-images.php' );
 // Register hooks that are fired when the plugin is activated, deactivated, and uninstalled, respectively.
 register_activation_hook( __FILE__, array( 'ReorderEntryImages', 'activate' ) );
 register_deactivation_hook( __FILE__, array( 'ReorderEntryImages', 'deactivate' ) );
-
 ReorderEntryImages::get_instance();

@@ -34,7 +34,7 @@
 					<h3 class='hndle'><span>About this plugin</span></h3>
 					<div class="inside">
 						<a href="http://wordpress.org/extend/plugins/reorder-entry-images" title="Reorder entry images on the WordPress plugin repository">Please give the plugin a good rating.</a>
-						<p><strong>Version:</strong> 1.0.2</p>
+						<p><strong>Version:</strong> <?php echo $this->version; ?></p>
 						<p><strong>Author:</strong> <a href="http://vayu.dk/reorder-entry-images/" title="Vayu Robins" target="_blank">Plugin home page.</a></p>
 						<p><strong>Description:</strong> Get all the attachments (images only) that belong to a post or a page and display them in a list. This list can be reordered by drag and drop.</p>
 						<p><strong>Feedback:</strong> Please got the <a href="http://wordpress.org/support/plugin/reorder-entry-images">Wordpress.org support forum</a> for feedback or support questions.</p>
