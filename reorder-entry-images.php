@@ -3,7 +3,7 @@
 Plugin Name: Reorder Entry Images
 Plugin URI:  http://vayu.dk/reorder-entry-images/
 Description: This will get all the attachments that belong to a post or a page and display them in a list. This list can be reordered by drag and drop.
-Version:     1.0.1
+Version:     1.0.2
 Author:      Vayu Robins
 Author URI:  http://vayu.dk/
 Text Domain: reorder-entry-images
@@ -34,5 +34,4 @@ require_once( plugin_dir_path( __FILE__ ) . 'class-reorder-entry-images.php' );
 // Register hooks that are fired when the plugin is activated, deactivated, and uninstalled, respectively.
 register_activation_hook( __FILE__, array( 'ReorderEntryImages', 'activate' ) );
 register_deactivation_hook( __FILE__, array( 'ReorderEntryImages', 'deactivate' ) );
-
 ReorderEntryImages::get_instance();
