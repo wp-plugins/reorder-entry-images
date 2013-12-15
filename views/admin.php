@@ -16,7 +16,7 @@
 	<?php screen_icon(); ?>
 	<h2><?php echo esc_html( get_admin_page_title() ); ?></h2>
 
-	<div class="form-wrap" style="float:left;">
+	<div class="form-wrap">
 		<form method="post" action="options.php">
 			<?php settings_fields( 'rei_the_settings_group' ); ?>
 			<?php do_settings_sections( $this->plugin_slug ); ?>
@@ -25,7 +25,7 @@
 		</form>
 	</div>
 
-	<div class="metabox-holder" style="float:right; width: 32%;">
+	<div class="metabox-holder">
 
 		<div class="post-box-container column-2 side">
 			<div id="side-sortables" class="meta-box-sortables">
