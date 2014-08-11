@@ -2,8 +2,8 @@
 Contributors: Vayu
 Tags: attachments, images, reorder, sort, entry, post, custom post types, page, drag & drop
 Requires at least: 3.4
-Tested up to: 3.8.1
-Stable tag: 1.0.3
+Tested up to: 3.9.2
+Stable tag: 1.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -68,6 +68,11 @@ Please remember to save the changes by pressing the Update button.
 
 == Changelog ==
 
+
+= 1.0.4 =
+* Added option to include feature image in order list.
+* Added support for png and gif images.
+* Tested in WordPress 3.9.2
 
 = 1.0.3 =
 * Updated UI for WordPress 3.8.

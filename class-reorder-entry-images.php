@@ -24,7 +24,7 @@ class ReorderEntryImages {
 	 *
 	 * @var     string
 	 */
-	protected $version = '1.0.3';
+	protected $version = '1.0.4';
 
 	/**
 	* Unique identifier for your plugin.
@@ -231,9 +231,28 @@ class ReorderEntryImages {
 
 		register_setting( 'rei_the_settings_group', 'rei-options' );
 
-		add_settings_section( 'rei-section-posttype', __( 'Post type', 'reorder-entry-images' ), array( $this, 'rei_general_settings_callback'), $this->plugin_slug );
+		add_settings_section(
+			'rei-section-general-options',
+			__( 'Post type', 'reorder-entry-images' ),
+			array( $this, 'rei_general_settings_callback'),
+			$this->plugin_slug
+		);
 
-		add_settings_field( 'rei-field-posttype', __( 'Post type', 'reorder-entry-images' ), array( $this, 'rei_general_settings_field_callback'), $this->plugin_slug, 'rei-section-posttype' );
+		add_settings_field(
+			'rei-posttype',
+			__( 'Post type', 'reorder-entry-images' ),
+			array( $this, 'rei_option_posttype'),
+			$this->plugin_slug,
+			'rei-section-general-options'
+		);
+
+		add_settings_field( 
+			'rei-feature-image',
+			__( 'Feature image', 'reorder-entry-images' ),
+			array( $this, 'rei_option_feature_image'),
+			$this->plugin_slug,
+			'rei-section-general-options'
+		);
 	}
 
 	/**
@@ -242,15 +261,15 @@ class ReorderEntryImages {
 	* @since 1.0.0
 	*/
 	public function rei_general_settings_callback() {
-		echo 'Choose which post type you would like to use the reorder images functionality.';
+		_e( 'Choose which post type you would like to use the reorder images functionality.', 'reorder-entry-images' );
 	}
 
 	/**
-	* Render the settings field for this plugin.
+	* Render the settings posttype field for this plugin.
 	*
 	* @since 1.0.0
 	*/
-	public function rei_general_settings_field_callback() {
+	public function rei_option_posttype() {
 
 		$settings = (array) get_option( 'rei-options' );
 		foreach( self::getObjectTypes() as $type ) {
@@ -259,7 +278,22 @@ class ReorderEntryImages {
 			}
 		}
 		?>
-		<span class="description"><?php _e("You can use this builtin-in or custom post types.", 'sort-entry-images'); ?></span>
+		<span class="description"><?php _e( 'You can use this builtin-in or custom post types.', 'reorder-entry-images' ); ?></span>
+		<?php
+	}
+
+	/**
+	* Render the settings feature image field for this plugin.
+	*
+	* @since 1.0.4
+	*/
+	public function rei_option_feature_image() {
+
+		$settings = (array) get_option( 'rei-options' );
+		echo '<label class="inline"><input type="checkbox" name="rei-options[feature-image]" value="true" '.checked( 'true', $settings['feature-image'], false ).' />'.__( 'Yes, include feature image', 'reorder-entry-images' ).'</label>';
+		
+		?>
+		<span class="description"><?php _e( 'Include/exclude feature image in the sort order list.', 'reorder-entry-images' ); ?></span>
 		<?php
 	}
 
@@ -283,7 +317,7 @@ class ReorderEntryImages {
 				foreach( $this->the_post_type as $type ) {
 					add_meta_box(
 						'sort-entry-images',
-						__( 'Reorder images with drag & drop', 'sort-entry-images' ),
+						__( 'Reorder images with drag & drop', 'reorder-entry-images' ),
 						array( $this, 'add_image_metabox_sorter' ),
 						$type,
 						'normal',
@@ -302,14 +336,15 @@ class ReorderEntryImages {
 	 */
 	public function add_image_metabox_sorter( $p ) {
 
-		$thumb_id = get_post_thumbnail_id( get_the_ID() );
+		$settings = (array) get_option( 'rei-options' );
+		$thumb_id = $settings['feature-image'] ? 0 : get_post_thumbnail_id( get_the_ID() );
 
 		$args = array(
 			'order'          => 'ASC',
 			'orderby'        => 'menu_order',
 			'post_type'      => 'attachment',
 			'post_parent'    => get_the_ID(),
-			'post_mime_type' => 'image/jpeg',
+			'post_mime_type' => array('image/jpeg', 'image/png', 'image/gif'),
 			'post_status'    => null,
 			'numberposts'    => -1,
 			'exclude'		 => $thumb_id // Exclude featured thumbnail
@@ -429,10 +464,11 @@ class ReorderEntryImages {
 
 		$wrap_class = $listclass ? $listclass : '';
 
-		$thumb_id = get_post_thumbnail_id( get_the_ID() );
+		$settings = (array) get_option( 'rei-options' );
+		$thumb_id = $settings['feature-image'] ? 0 : get_post_thumbnail_id( get_the_ID() );
 		$args = array(
 			'post_type' => 'attachment',
-			'post_mime_type'  => 'image/jpeg',
+			'post_mime_type'  => array('image/jpeg', 'image/png', 'image/gif'),
 			'orderby' => 'menu_order',
 			'numberposts' => $numberimages,
 			'order' => $order,
