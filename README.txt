@@ -2,12 +2,12 @@
 Contributors: Vayu
 Tags: attachments, images, reorder, sort, entry, post, custom post types, page, drag & drop
 Requires at least: 3.4
-Tested up to: 3.9.2
-Stable tag: 1.0.4
+Tested up to: 4.0
+Stable tag: 1.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Get all the attachments (images only) that belong to a post or a page and display them in a list. This list can be reordered by drag and drop.
+Get all the attachments (images only) that belong to a post, a page or post-type and display them in a list. This list can be reordered by drag and drop.
 
 == Description ==
 
@@ -57,7 +57,7 @@ http://vayu.dk/reorder-entry-images/
 
 == Frequently Asked Questions ==
 
-= When change the image order, nothing happens? =
+= When I change the image order, nothing happens? =
 
 Please remember to save the changes by pressing the Update button.
 
@@ -68,6 +68,8 @@ Please remember to save the changes by pressing the Update button.
 
 == Changelog ==
 
+= 1.0.5 =
+* Updated for WordPress 4.0.
 
 = 1.0.4 =
 * Added option to include feature image in order list.
