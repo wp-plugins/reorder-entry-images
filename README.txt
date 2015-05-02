@@ -7,7 +7,7 @@ Stable tag: 1.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Get all the attachments (images only) that belong to a post, a page or post-type and display them in a list. This list can be reordered by drag and drop.
+Get the attachments (images only) that belong to a post/page/post-type and display them in a list. This list can be reordered by drag and drop.
 
 == Description ==
 
